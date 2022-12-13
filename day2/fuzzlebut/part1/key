@@ -1,0 +1,7 @@
+A = X = 1 = Rock
+B = Y = 2 = Paper
+C = Z = 3 = Scissors
+
+Win  = 6
+Tie  = 3
+Lose = 0

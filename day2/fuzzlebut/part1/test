@@ -1,0 +1,12 @@
+#!/bin/fish
+
+
+cat possibilities|while read line
+    set OUT (echo -e "$line\nEND\n"|../fuzz_interpreter code.fuzz)
+    read EXPECT
+    if [ "$OUT" = "$EXPECT" ]
+        echo "PASS: $line"
+    else
+        echo "FAIL: $line"
+    end
+end

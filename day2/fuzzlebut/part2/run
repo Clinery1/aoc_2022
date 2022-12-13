@@ -1,0 +1,4 @@
+#!/bin/fish
+
+
+cat ../input|../fuzz_interpreter code.fuzz
