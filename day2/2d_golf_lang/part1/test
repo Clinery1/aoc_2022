@@ -1,0 +1,18 @@
+#!/bin/fish
+
+
+cat possibilities|while read line
+    set OUT (echo -e "$line"|../interpreter code)
+    read EXPECT
+    if [ "$OUT" = "$EXPECT" ]
+        echo "PASS: $line"
+    else
+        echo "FAIL: $line; Expected: $EXPECT"
+        echo "-----------BEGIN STDOUT-----------"
+        for line in $OUT
+            echo $line
+        end
+        echo "------------END STDOUT------------"
+        echo
+    end
+end

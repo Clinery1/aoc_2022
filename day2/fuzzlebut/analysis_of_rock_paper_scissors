@@ -1,3 +1,6 @@
+Assuming player is right:
+
+
 1=R
 2=P
 3=S
@@ -13,13 +16,13 @@
 3 == 3; 0
 
 # Good
--2, 1
+-1, 2
 
 # Tie
 0
 
 # Bad
--1, 2
+-2, 1
 
 
 # Mapping the output so win, lose, and tie are a single number
@@ -38,3 +41,12 @@ l    r; raw     mapped
 3 -> 1; 2       2
 3 <- 2; 1       1
 3 == 3; 0       3
+
+### 1
+Lose
+
+### 2
+Win
+
+### 3
+Draw

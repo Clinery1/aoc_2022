@@ -1,0 +1,55 @@
+v
+  (TBD) code for AoC 2022 day 2 part 1
+
+> L4:I0                                                           "Match the right char" v
+v          :                               :          :          :                       <
+> R0 Oc O? Bv> S0 L2:R0   p2:0 L1:CX Oc    B L1:CY Oc B L1:CZ Oc B L1:R0 L0:"[0]: Unknown char: `" O+ L1:C` O+ # ~
+           D      "Exit condition"         =          =          =
+           :>     L0:R4 # ~                :          :          :
+           > ^                             > L6:I1 v  > L6:I3 v  > L6:I2 v
+ v                    :          :          :      <          <          <  "Match the left char"
+ > p2:0 p2:0 L1:CA Oc B L1:CB Oc B L1:CC Oc B L1:R0 L0:"[1]: Unknown char: `" O+ L1:C` O+ # ~
+                      =          =          =
+                      :          :          :
+                      > L5:I0 v  > L5:I1 v  > L5:I2 v
+ v         ?O     :          :<"Win"     <          <
+ > L0:R6 L1:I3 Oc B L1:I1 Oc B L1:I6 L0:R4 O+ L4:R0 L0:R5 L1:I1 O+ L1:I3 O% L1:I1 O+ L1:R4 O+ L4:R0 v
+                  =          =
+                  :          : "Lose"
+                    "Draw"   > L0:R5 L1:I2 O+ L1:I3 O% L1:I1 O+ L1:R4 O+ L4:R0 v                    <
+                  > L1:I3 L0:R4 O+ L4:R0 L0:R5 L1:I1 O+ L1:R4 O+ L4:R0 v       <
+^                                                                      <
+
+# Outcome map
+lose=1
+win=2
+draw=3
+
+# Enemy play map
+A=1
+B=2
+C=3
+
+We have R6=lose/win/draw and R5=A/B/C and we need to find what our move is.
+The formula for calculating lose/win/draw is:
+
+```
+tmp = l - r
+if tmp < 1:
+  tmp += 3
+```
+
+to reverse that we need to do
+
+```
+if res is lose:
+  tmp = (R5 + 2) % 3
+  play = tmp + 1
+  score += play
+else if res is win:
+  tmp = (R5 + 1) % 3
+  play = tmp + 1
+  score += play + 6
+else if res is draw:
+  play = R5 + 1
+  score += play + 3

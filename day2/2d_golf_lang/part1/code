@@ -1,0 +1,24 @@
+v
+  (TBD) code for AoC 2022 day 2 part 1
+
+> L4:I0                                                           "Match the right char" v
+v          :                               :          :          :                       <
+> R0 Oc O? Bv> S0 L2:R0   p2:0 L1:CX Oc    B L1:CY Oc B L1:CZ Oc B L1:R0 L0:"[0]: Unknown char: `" O+ L1:C` O+ # ~
+           D      "Exit condition"         =          =          =
+           :>     L0:R4 # ~                :          :          :
+           > ^                             > L6:I1 v  > L6:I2 v  > L6:I3 v
+ v                   :          :          :       <          <          <  "Match the left char"
+ >p2:0 p2:0 L1:CA Oc B L1:CB Oc B L1:CC Oc B L1:R0 L0:"[1]: Unknown char: `" O+ L1:C` O+ # ~
+                     =          =          =
+                     :          :          :
+                     > L5:I1 v  > L5:I2 v  > L5:I3 v
+ v         ?O                <          <          <
+ >L0:R4 &6:1 O+ L4:R0 "Add the player's input to the score" v
+ v         ?O                :            :          :      <
+ >L0:R5 L1:R6 O- L1:I1 Oc O? B > L1:I2 Oc B L1:I1 Oc B         v
+                             <            =          =
+                             : ^        < :          :
+                             > L1:I3 O+ ^ > L1:I6 v  > L1:I0 v > L1:I3 v
+ v     ?O                                         <          <         <
+ >L0:R4 O+ L4:R0 "Add win/lose/draw score to total" v
+^      ?O                                           <
