@@ -1,5 +1,8 @@
 use std::{
-    ops::Index,
+    ops::{
+        Index,
+        IndexMut,
+    },
     fs::read_to_string,
 };
 use Direction::*;
@@ -57,6 +60,11 @@ impl<T> Index<Cursor> for Vec<Vec<T>> {
         self.index(c.y).index(c.x)
     }
 }
+impl<T> IndexMut<Cursor> for Vec<Vec<T>> {
+    fn index_mut(&mut self,c:Cursor)->&mut T {
+        self.index_mut(c.y).index_mut(c.x)
+    }
+}
 
 
 fn main() {
@@ -75,27 +83,46 @@ fn main() {
         )
         .collect::<Vec<_>>();
     let index_max=input.len();
-    // dbg!(input.len(),input[0].len());
-    let mut visible_count=0;
+    let mut scenic_scores=input
+        .iter()
+        .map(|row|row
+            .iter()
+            .map(|tree|*tree as u64)
+            .collect::<Vec<_>>()
+        )
+        .collect::<Vec<_>>();
     for y in 0..input.len() {
         for x in 0..input.len() {
             let cursor=Cursor{x,y};
             let current=input[cursor];
-            'test_dirs:for dir in [Up,Down,Left,Right] {
-                let mut alt_cursor=cursor.clone();
-                let mut visible=true;
-                'test_height:loop {
-                    if alt_cursor.inc(dir,index_max) {
-                        break 'test_height;
+            let scenic_score=[Up,Down,Left,Right]
+                .into_iter()
+                .map(|dir|{
+                    let mut alt_cursor=cursor.clone();
+                    let mut tree_count=0;
+                    loop {
+                        if alt_cursor.inc(dir,index_max) {
+                            break;
+                        }
+                        tree_count+=1;
+                        if input[alt_cursor]>=current {
+                            break;
+                        }
                     }
-                    visible&=input[alt_cursor]<current;
-                }
-                if visible {
-                    visible_count+=1;
-                    break 'test_dirs;
-                }
-            }
+                    return tree_count;
+                })
+                .reduce(|a,b|a*b).unwrap();
+            scenic_scores[cursor]=scenic_score;
         }
     }
-    println!("Amount of trees visible from the edge: {}",visible_count);
+    println!("Highest scenic score: {}",scenic_scores
+        .iter()
+        .map(|row|row
+            .iter()
+            .max()
+            .unwrap()
+        )
+        .max()
+        .unwrap()
+    );
 }
